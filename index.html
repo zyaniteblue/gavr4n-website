@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09090d">
+  <meta name="description" content="GAVR4N – Official artist website. Dark Cinematic Rock and Darkhouse.">
+  <title>GAVR4N | Official Artist Website</title>
+
+  <style>
+    :root {
+      --bg: #09090d;
+      --panel: #15131a;
+      --red: #b91e36;
+      --light: #f0e9e9;
+      --muted: #b4a8ad;
+      --line: #3b2831;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--light);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(9,9,13,.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    nav {
+      max-width: 1120px;
+      margin: auto;
+      padding: 15px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.65rem;
+      font-weight: 900;
+      letter-spacing: .2em;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .navlinks a:hover { color: #e34c65; }
+
+    .hero {
+      min-height: 76vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 90px 24px;
+      background:
+        radial-gradient(circle at 50% 25%,
+          rgba(155,20,45,.32),transparent 38%),
+        linear-gradient(180deg,#151019,#09090d);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .moon {
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      top: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%,
+          #d85464,#89142c 60%,#2a0710);
+      box-shadow: 0 0 95px rgba(170,20,45,.24);
+      opacity: .55;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: .3em;
+      color: #d9a4ae;
+      font-size: .72rem;
+    }
+
+    h1 {
+      font-size: clamp(3.4rem,12vw,8rem);
+      letter-spacing: .16em;
+      margin: 10px 0;
+      line-height: 1.2;
+      text-shadow: 0 8px 35px #000;
+    }
+
+    .tagline {
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      font-size: clamp(.75rem,2vw,1rem);
+      color: #e4c9d0;
+    }
+
+    .intro {
+      max-width: 650px;
+      margin: 30px auto;
+      color: var(--muted);
+    }
+
+    .button {
+      display: inline-block;
+      border: 1px solid var(--red);
+      background: var(--red);
+      color: white;
+      padding: 12px 25px;
+      margin: 6px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: .78rem;
+      transition: .2s;
+    }
+
+    .button:hover { background: #e02a49; }
+
+    .button.secondary {
+      background: transparent;
+      border-color: #89737c;
+    }
+
+    section {
+      max-width: 1120px;
+      margin: auto;
+      padding: 85px 22px;
+    }
+
+    .section-title {
+      text-transform: uppercase;
+      letter-spacing: .19em;
+      font-size: clamp(1.4rem,4vw,2.1rem);
+      margin: 0 0 15px;
+    }
+
+    .section-lead {
+      color: var(--muted);
+      max-width: 720px;
+      margin-bottom: 35px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--line);
+      max-width: 1120px;
+      margin: auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3,minmax(0,1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 25px;
+    }
+
+    .art {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 22px;
+      background:
+        radial-gradient(circle at 50% 30%,
+          #68172b,#1c111a 55%,#08080d);
+      border: 1px solid #4b2533;
+      color: #f0cbd3;
+      font-family: Georgia,serif;
+      font-size: 1.4rem;
+      letter-spacing: .08em;
+    }
+
+    .card h3 {
+      font-size: 1.12rem;
+      margin: 20px 0 5px;
+    }
+
+    .meta {
+      color: #d17b90;
+      font-size: .76rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .card p { color: var(--muted); }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .symbol {
+      min-height: 300px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle,#531326,#100d14 65%);
+      font-family: Georgia,serif;
+      font-size: 5rem;
+      color: #d7a5ae;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .links a {
+      padding: 12px 20px;
+      border: 1px solid #62424e;
+      text-transform: uppercase;
+      font-size: .8rem;
+      letter-spacing: .08em;
+    }
+
+    .links a:hover {
+      background: var(--red);
+      border-color: var(--red);
+    }
+
+    footer {
+      padding: 35px 22px;
+      text-align: center;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    @media(max-width:760px) {
+      .grid { grid-template-columns: 1fr; }
+      .about { grid-template-columns: 1fr; }
+      nav { justify-content: center; }
+      .navlinks { justify-content: center; }
+      .hero { min-height: 70vh; }
+      .moon { width: 175px; height: 175px; }
+      section { padding: 65px 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <a class="logo" href="#home">GAVR4N</a>
+    <div class="navlinks">
+      <a href="#music">Music</a>
+      <a href="#about">About</a>
+      <a href="#connect">Connect</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="hero" id="home">
+    <div class="moon"></div>
+    <div class="hero-content">
+      <div class="eyebrow">Official Artist Website</div>
+      <h1>GAVR4N</h1>
+      <div class="tagline">
+        Dark Cinematic Rock · Darkhouse
+      </div>
+      <p class="intro">
+        A world shaped by darkness, emotion and transformation.
+        Cinematic rock, haunting strings and electronic power.
+      </p>
+      <a class="button"
+         href="https://open.spotify.com/artist/0f9VH5RBLLzLs7QUBqhcgq"
+         target="_blank" rel="noopener noreferrer">
+        Listen on Spotify
+      </a>
+      <a class="button secondary" href="#music">
+        Explore the Music
+      </a>
+    </div>
+  </div>
+
+  <section id="music">
+    <h2 class="section-title">Discography</h2>
+    <p class="section-lead">
+      Explore the musical world of GAVR4N.
+      Original releases and Darkhouse interpretations.
+    </p>
+
+    <div class="grid">
+      <article class="card">
+        <div class="art">THUNDER THE<br>CRIMSON MOON</div>
+        <div class="meta">EP</div>
+        <h3>Thunder the Crimson Moon</h3>
+        <p>
+          Dark cinematic rock and emotional storytelling.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="art">UNDER THE<br>CRIMSON MOON</div>
+        <div class="meta">EP · 16 NOV 2026</div>
+        <h3>Under the Crimson Moon</h3>
+        <p>
+          Four songs from the GAVR4N cinematic universe.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="art">DAS SCHÖNE<br>LEBEN</div>
+        <div class="meta">EP</div>
+        <h3>Das schöne Leben</h3>
+        <p>
+          Personal stories, connection and German-language rock.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="about">
+    <div class="about">
+      <div class="symbol">G4</div>
+      <div>
+        <h2 class="section-title">The World of GAVR4N</h2>
+        <p>
+          GAVR4N combines dark cinematic rock,
+          atmospheric orchestration and modern electronic
+          production.
+        </p>
+        <p>
+          A musical universe of identity, memory,
+          resilience and transformation.
+        </p>
+        <p>
+          From powerful baritone-led originals to
+          hypnotic Darkhouse remixes, every release
+          belongs to a larger artistic narrative.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="connect">
+    <h2 class="section-title">Enter the World</h2>
+    <p class="section-lead">
+      Follow GAVR4N and discover the latest releases.
+    </p>
+
+    <div class="links">
+      <a href="https://open.spotify.com/artist/0f9VH5RBLLzLs7QUBqhcgq"
+         target="_blank" rel="noopener noreferrer">
+        Spotify
+      </a>
+
+      <a href="https://www.instagram.com/gavr4n.music/"
+         target="_blank" rel="noopener noreferrer">
+        Instagram
+      </a>
+
+      <a href="https://www.tiktok.com/@gavr4n.music"
+         target="_blank" rel="noopener noreferrer">
+        TikTok
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © 2026 GAVR4N · Official Artist Website
+</footer>
+
+</body>
+</html>
