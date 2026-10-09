@@ -34,17 +34,42 @@ h1{color:#e8e1e4;-webkit-text-stroke:.7px #6d5962;text-shadow:0 2px 1px #160b13,
 .cover{background:#130d13 url('ep-cover-placeholder.jpg') center/cover}
 .cover img{width:100%;height:100%;object-fit:cover;display:block}
 @media(prefers-reduced-motion:reduce){.bird-shape,.raven{animation:none!important}}
+
+/* Two-stage entrance: true aspect ratios, never stretch imagery */
+body.portal-active{overflow:hidden}
+.portal{position:fixed;inset:0;z-index:999;display:grid;place-items:center;background:#060409;overflow:hidden;transition:opacity 1.1s ease,visibility 1.1s}
+.portal::before{content:"";position:absolute;inset:-3%;background:url('gavran-portal.jpg') center/cover no-repeat;filter:blur(45px) brightness(.23);transform:scale(1.1)}
+.portal-vignette{position:absolute;inset:0;background:radial-gradient(circle at center,transparent 12%,#060409 80%);pointer-events:none}
+.portal-enter{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;border:0;background:transparent;color:#e7d7db;cursor:pointer;padding:22px;max-width:min(88vw,680px);letter-spacing:.22em;text-shadow:0 0 20px #b62b43}
+.portal-enter img{width:min(72vw,490px);max-height:68svh;object-fit:contain;filter:drop-shadow(0 0 22px #7d102b);animation:portal-pulse 6s ease-in-out infinite}
+.portal-enter span{font-size:clamp(12px,2.4vw,19px);font-weight:700}
+.portal-enter small{font-size:10px;opacity:.75;letter-spacing:.17em}
+.portal-enter:focus-visible{outline:2px solid #ee8096}
+.portal.is-entered{opacity:0;visibility:hidden;pointer-events:none}
+@keyframes portal-pulse{0%,100%{filter:drop-shadow(0 0 12px #621024)}50%{filter:drop-shadow(0 0 32px #b72a4e)}}
+@media(prefers-reduced-motion:reduce){.portal-enter img{animation:none}.portal{transition:none}}
 </style>
 </head>
-<body>
-<header><nav><a class="brand" href="#home">GAVR4N</a><div class="navlinks"><a href="#music">Music</a><a href="#about">About</a><a href="#connect">Connect</a><a href="https://www.youtube.com/results?search_query=GAVR4N+music" target="_blank" rel="noopener">YouTube</a></div></nav></header>
+<body class="portal-active">
+<div id="portal" class="portal" role="dialog" aria-modal="true" aria-label="Enter the GAVR4N world">
+  <div class="portal-vignette"></div>
+  <button class="portal-enter" id="portal-enter" type="button" aria-label="Enter GAVR4N website">
+    <img src="gavran-portal.jpg" alt="GAVR4N emblem — enter website" />
+    <span>ENTER THE WORLD OF GAVR4N</span>
+    <small>TOUCH THE SYMBOL TO ENTER</small>
+  </button>
+</div>
+<header><nav><a class="brand" href="#home">GAVR4N</a><div class="navlinks"><a href="#music">Music</a><a href="#about">About</a><a href="#connect">Connect</a><a href="https://www.youtube.com/@gavr4nmusic" target="_blank" rel="noopener">YouTube</a></div></nav></header>
 <main>
 <section class="hero" id="home" aria-label="GAVR4N cinematic castle"><div class="hero-image" aria-hidden="true"></div><div class="red-glow" aria-hidden="true"></div><div class="crimson-aura" aria-hidden="true"></div><div class="violet-shimmer" aria-hidden="true"></div><div class="flash-glint" aria-hidden="true"></div><div class="mist" aria-hidden="true"></div><div class="mist two" aria-hidden="true"></div><div class="raven" aria-hidden="true"><svg class="bird-shape" viewBox="0 0 100 52" aria-hidden="true"><path fill="#06040a" d="M49 27C34 15 18 11 0 7c13 12 20 18 29 20C17 25 9 29 3 34c16-1 27-2 41 3l7 10 6-10c13-5 26-4 40-3-8-6-16-9-27-7C82 24 89 18 100 7 82 11 67 16 54 27l-3 3z"/></svg></div><div class="raven two" aria-hidden="true"><svg class="bird-shape" viewBox="0 0 100 52" aria-hidden="true"><path fill="#06040a" d="M49 27C34 15 18 11 0 7c13 12 20 18 29 20C17 25 9 29 3 34c16-1 27-2 41 3l7 10 6-10c13-5 26-4 40-3-8-6-16-9-27-7C82 24 89 18 100 7 82 11 67 16 54 27l-3 3z"/></svg></div><div class="hero-content"><div class="eyebrow">Official Artist Website</div><h1>GAVR4N</h1><div class="tagline">Dark Cinematic Rock · Darkhouse</div><p>Where darkness becomes sound. Cinematic rock, haunting strings and electronic power.</p><a class="button" href="https://open.spotify.com/artist/0f9VH5RBLLzLs7QUBqhcgq" target="_blank" rel="noopener noreferrer">Listen on Spotify</a><a class="button alt" href="#music">Explore the Music</a></div></section>
 <section class="section reveal" id="music"><h2>Discography</h2><p class="lead">Original releases and Darkhouse interpretations from the world of GAVR4N.</p><div class="grid"><article class="card"><div class="cover"><img src="cover-thunder.jpg" alt="Originalcover der GAVR4N EP" onerror="this.style.display='none';this.parentNode.append(document.createTextNode('THUNDER THE CRIMSON MOON'))"></div><div class="meta">EP</div><h3>Thunder the Crimson Moon</h3><p>Dark cinematic rock and emotional storytelling.</p></article><article class="card"><div class="cover"><img src="cover-under.jpg" alt="Originalcover der GAVR4N EP" onerror="this.style.display='none';this.parentNode.append(document.createTextNode('UNDER THE CRIMSON MOON'))"></div><div class="meta">EP · 16 NOV 2026</div><h3>Under the Crimson Moon</h3><p>Four songs from the GAVR4N cinematic universe.</p></article><article class="card"><div class="cover"><img src="cover-das-schoene-leben.jpg" alt="Originalcover der GAVR4N EP" onerror="this.style.display='none';this.parentNode.append(document.createTextNode('DAS SCHÖNE LEBEN'))"></div><div class="meta">EP</div><h3>Das schöne Leben</h3><p>Personal stories and German-language rock.</p></article></div></section>
 <section class="about reveal" id="about"><div class="about-inner"><h2>The World of GAVR4N</h2><p>GAVR4N combines dark cinematic rock, atmospheric orchestration and modern electronic production. A musical universe of identity, memory, resilience and transformation — from baritone-led originals to hypnotic Darkhouse remixes.</p></div></section>
-<section class="section reveal" id="connect"><h2>Enter the World</h2><p class="lead">Follow GAVR4N and discover the latest releases.</p><div class="links"><a href="https://open.spotify.com/artist/0f9VH5RBLLzLs7QUBqhcgq" target="_blank" rel="noopener noreferrer">Spotify</a><a href="https://www.instagram.com/gavr4n.music/" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://www.tiktok.com/@gavr4n.music" target="_blank" rel="noopener noreferrer">TikTok</a><a href="https://www.youtube.com/results?search_query=GAVR4N+music" target="_blank" rel="noopener">YouTube</a></div></section>
+<section class="section reveal" id="connect"><h2>Enter the World</h2><p class="lead">Follow GAVR4N and discover the latest releases.</p><div class="links"><a href="https://open.spotify.com/artist/0f9VH5RBLLzLs7QUBqhcgq" target="_blank" rel="noopener noreferrer">Spotify</a><a href="https://www.instagram.com/gavr4n.music/" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://www.tiktok.com/@gavr4n.music" target="_blank" rel="noopener noreferrer">TikTok</a><a href="https://www.youtube.com/@gavr4nmusic" target="_blank" rel="noopener">YouTube</a></div></section>
 </main><audio id="castle-loop" src="castle-intro-loop.mp3" preload="none" loop></audio><button type="button" class="sound-toggle" id="sound-toggle" aria-pressed="false">♫ SOUND AKTIVIEREN</button><footer>© 2026 GAVR4N · Official Artist Website</footer>
-<script>if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}})},{threshold:.1});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el))}else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'))}</script>
+<script>
+(function(){const portal=document.getElementById('portal');const enter=document.getElementById('portal-enter');enter.addEventListener('click',()=>{portal.classList.add('is-entered');document.body.classList.remove('portal-active');document.getElementById('home').scrollIntoView({block:'start',behavior:'instant'});});})();
+</script>
+<script>if('IntersectionObserver'  in window){const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}})},{threshold:.1});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el))}else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'))}</script>
 <script>
 (function(){const audio=document.getElementById('castle-loop');const button=document.getElementById('sound-toggle');
 button.addEventListener('click',async()=>{if(audio.paused){try{await audio.play();button.textContent='♫ SOUND AUSSCHALTEN';button.setAttribute('aria-pressed','true')}catch(e){button.textContent='♫ SOUND ERNEUT VERSUCHEN'}}else{audio.pause();button.textContent='♫ SOUND AKTIVIEREN';button.setAttribute('aria-pressed','false')}});
