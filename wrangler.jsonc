@@ -2,8 +2,14 @@
   "name": "gavr4n",
   "compatibility_date": "2026-10-06",
   "assets": {
-    "directory": "./",
-    "binding": "ASSETS"
+    "directory": "./"
   },
-  "main": "worker.js"
+  "main": "worker.js",
+  "kv_namespaces": [
+    {
+      "binding": "CONTACT_KV",
+      "id": "993d592098754ef7a559be37ff484a4b"
+    }
+  ]
 }
+  
