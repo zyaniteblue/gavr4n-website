@@ -11,6 +11,7 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    // Bestehende GAVR4N-Webseite ausliefern
     if (url.pathname !== "/api/contact") {
       return env.ASSETS.fetch(request);
     }
@@ -58,25 +59,43 @@ export default {
       return json({ error: "Invalid JSON" }, 400);
     }
 
-    if (!data || typeof data !== "object" ||
-        Array.isArray(data)) {
+    if (
+      !data ||
+      typeof data !== "object" ||
+      Array.isArray(data)
+    ) {
       return json({ error: "Invalid data" }, 400);
     }
 
-    // Unsichtbares Formularfeld gegen einfache Bots
+    // Honeypot gegen einfache Spam-Bots
     if (data.website) {
       return json({ success: true });
     }
 
-    const name = String(data.name || "").trim();
-    const email = String(data.email || "").trim();
-    const message = String(data.message || "").trim();
+    // Nur echte Textwerte akzeptieren
+    const fields = ["name", "email", "subject", "message"];
+
+    if (fields.some(field => typeof data[field] !== "string")) {
+      return json(
+        { error: "Please check your details" },
+        400
+      );
+    }
+
+    const name = data.name.trim();
+    const email = data.email.trim();
+    const subject = data.subject.trim();
+    const message = data.message.trim();
 
     if (
-      !name || name.length > 100 ||
+      !name ||
+      name.length > 100 ||
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
       email.length > 254 ||
-      !message || message.length > 5000
+      !subject ||
+      subject.length > 150 ||
+      message.length < 10 ||
+      message.length > 5000
     ) {
       return json(
         { error: "Please check your details" },
@@ -84,29 +103,33 @@ export default {
       );
     }
 
-    // Einfache Begrenzung pro IP-Adresse
     const ip = request.headers.get("CF-Connecting-IP");
 
     if (!ip) {
-      return json({ error: "Request unavailable" }, 503);
+      return json(
+        { error: "Request unavailable" },
+        503
+      );
     }
 
     try {
+      // IP-Adresse nur gehasht für Rate-Limit verwenden
       const encoder = new TextEncoder();
+
       const digest = await crypto.subtle.digest(
         "SHA-256",
         encoder.encode(ip)
       );
 
       const hash = Array.from(new Uint8Array(digest))
-        .map(b => b.toString(16).padStart(2, "0"))
+        .map(byte => byte.toString(16).padStart(2, "0"))
         .join("");
 
       const hour = Math.floor(Date.now() / 3600000);
       const rateKey = `rate:${hash}:${hour}`;
 
       const current = Number(
-        await env.CONTACT_KV.get(rateKey) || 0
+        (await env.CONTACT_KV.get(rateKey)) || 0
       );
 
       if (current >= 3) {
@@ -118,27 +141,40 @@ export default {
       }
 
       const id = crypto.randomUUID();
+      const createdAt = new Date().toISOString();
 
+      // Nachricht für 90 Tage speichern
       await env.CONTACT_KV.put(
         `contact:${Date.now()}:${id}`,
         JSON.stringify({
           id,
           name,
           email,
+          subject,
           message,
-          createdAt: new Date().toISOString()
+          createdAt
         }),
-        { expirationTtl: 60 * 60 * 24 * 90 }
+        {
+          expirationTtl: 60 * 60 * 24 * 90
+        }
       );
 
+      // Einfaches Rate-Limit
       await env.CONTACT_KV.put(
         rateKey,
         String(current + 1),
-        { expirationTtl: 7200 }
+        {
+          expirationTtl: 7200
+        }
       );
 
-      return json({ success: true });
-    } catch {
+      return json({
+        success: true
+      });
+
+    } catch (error) {
+      console.error("Contact storage error:", error);
+
       return json(
         { error: "Could not save message" },
         503
