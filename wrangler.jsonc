@@ -2,7 +2,8 @@
   "name": "gavr4n",
   "compatibility_date": "2026-10-06",
   "assets": {
-    "directory": "./"
+    "directory": "./",
+    "binding": "ASSETS"
   },
   "main": "worker.js"
 }
